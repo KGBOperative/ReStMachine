@@ -1,0 +1,14 @@
+@start {
+    assign(r0 1);
+    assign(r1 +(r0 1));
+    print(r0);
+    @loop {
+        assign(r2 =(r0 r1));
+        branch(r2 end);
+        assign(r1 -(r1 1));
+        goto loop;
+    } end;
+    push(r1);
+    pop(r3);
+    print(r3);
+} end;

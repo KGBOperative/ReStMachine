@@ -1,0 +1,7 @@
+# ignore everything
+*
+
+# include only these
+!.gitignore
+!*.scm
+!*.rsm
