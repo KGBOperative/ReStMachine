@@ -8,8 +8,8 @@
       (let ((char (peek-char file)))
         (cond ((num-char? char)
                (begin
-                 (set! (append char-list (read-char file)))
-                 (num char-list)))
+                 (set! char-list (append char-list (read-char file)))
+                 (num-word char-list)))
               ((newline? char)
                (begin
                  (inc-line (read-char file))
@@ -51,35 +51,31 @@
     (define (word char-list)
       (let ((char (peek-char file)))
         (cond ((word-inner-char? char)
-               (begin
                  (set! char-list (append char-list (read-char file)))
                  (word char-list))
                ((newline? char)
-                (begin
                   (inc-line (read-char file))
-                  (list->string char-list)))
+                  (list->string char-list))
                ((or (eof-object? char)
                     (op-start-char? char)
                     (op-end-char? char)
                     (char-whitespace? char))
                 (list->string char-list))
-               (else (error "bad word char at line " line))))))
+               (else (error "bad word char at line " line)))))
     (define split-str
       (let ((char (peek-char file)))
         (cond ((singleton? char)
                  (cons (list->string (read-char file)) (split-str)))
               ((or (label-start-char? char) (word-outer-char? char))
-                 (cons ((word (list (read-char file)))) (split-str)))
+                 (cons (word (list (read-char file))) (split-str)))
               ((num-char? char)
-                 (cons words (num-word (list (read-char file))) (split-str)))
+                 (cons (num-word (list (read-char file))) (split-str)))
               ((newline? char)
-               (begin
                  (inc-line (read-char file))
-                 (split-str)))
+                 (split-str))
               ((char-whitespace? char)
-               (begin
                  (read-char file)
-                 (split-str)))
+                 (split-str))
               ((eof-object? char) '()))))
     (split-str)))
 
