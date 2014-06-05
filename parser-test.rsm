@@ -8,7 +8,9 @@
         assign(r1 -(r1 1));
         goto loop;
     } end;
+    assign(r10 "this is a 'test' string");
+    assign(r90 'a');
     push(r1);
     pop(r3);
-    print(r3);
+    print(r4 r3);
 } end;

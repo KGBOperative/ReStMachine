@@ -9,7 +9,7 @@
   (list token lexeme))
 
 ; token definitions
-(define (register? lexeme) (pregexp ))
+(define (register? lexeme) (pregexp-match "^r([0-9]$|[1-9][0-9]$)" lexeme))
 (define (branch? lexeme) (string=? lexeme "branch"))
 (define (openop? lexeme) (string=? lexeme "("))
 (define (closeop? lexeme) (string=? lexeme ")"))
